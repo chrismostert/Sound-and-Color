@@ -1,6 +1,4 @@
 import { VITE_SPOTIFY_CLIENT_ID, VITE_SPOTIFY_CLIENT_SECRET } from '$env/static/private';
-import { json } from '@sveltejs/kit';
-
 const TOKEN_ENDPOINT = `https://accounts.spotify.com/api/token`;
 
 export async function get_spotify_token() {
