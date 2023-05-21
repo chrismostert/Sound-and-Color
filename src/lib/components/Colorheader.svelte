@@ -10,6 +10,10 @@
 </script>
 
 <div>
-	<h1 class="text-3xl">{info?.name}</h1>
-	<h2 class="text-lg">By {info?.owner} on Spotify</h2>
+	<h1 class="text-3xl transition-opacity" style={`${!info?.name ? 'opacity: 0' : 'opacity: 100'}`}>
+		{info?.name}
+	</h1>
+	<h2 class="text-lg transition-opacity" style={`${!info?.owner ? 'opacity: 0' : 'opacity: 100'}`}>
+		By {info?.owner} on Spotify
+	</h2>
 </div>
