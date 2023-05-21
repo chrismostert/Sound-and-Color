@@ -1,5 +1,8 @@
 <script>
 	import { goto } from '$app/navigation';
+	import { fullscreen } from '$lib/store.js';
+	$fullscreen = false;
+
 	let textinput;
 	let playlist_id;
 	//let playlist_id = '6UeSakyzhiEt4NB3UAd6NQ';

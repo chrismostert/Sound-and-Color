@@ -9,7 +9,7 @@
 	});
 </script>
 
-<div>
+<div class="text-slate-500">
 	<h1 class="text-3xl transition-opacity" style={`${!info?.name ? 'opacity: 0' : 'opacity: 100'}`}>
 		{info?.name}
 	</h1>

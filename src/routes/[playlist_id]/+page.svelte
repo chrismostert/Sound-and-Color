@@ -3,13 +3,16 @@
 	import Colorview from '$lib/components/Colorview.svelte';
 	import Options from '$lib/components/Options.svelte';
 
+	import { fullscreen } from '$lib/store.js';
+
 	let screenheight, screenwidth;
 	export let data;
 </script>
 
 <Colorheader playlist_id={data.playlist_id} />
 <div
-	class="w-full h-2/6 mx-auto my-4"
+	id="playlist-colors"
+	class={`w-full ${$fullscreen ? 'h-4/6' : 'h-2/6'} mx-auto my-4`}
 	bind:clientHeight={screenheight}
 	bind:clientWidth={screenwidth}
 >

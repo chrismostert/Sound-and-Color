@@ -29,7 +29,7 @@
 	});
 </script>
 
-<div class="flex flex-row shadow-lg" style={`height: ${height}px`}>
+<div class={`flex flex-row shadow-lg`} style={`height: ${height}px`}>
 	{#each colors as color, i (i)}
 		<div
 			in:slide={{
