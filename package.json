@@ -28,6 +28,7 @@
 	"type": "module",
 	"dependencies": {
 		"colorthief": "^2.4.0",
-		"dominant-color": "^0.0.1"
+		"dominant-color": "^0.0.1",
+		"svelte-feather-icons": "^4.0.0"
 	}
 }

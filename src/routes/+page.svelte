@@ -19,7 +19,7 @@
 <div class="flex">
 	<input
 		on:keypress={(e) => {
-			if (e.code === 'Enter' || e.code === 'NumpadEnter') {
+			if (textinput && (e.code === 'Enter' || e.code === 'NumpadEnter')) {
 				playlist_id = textinput;
 			}
 		}}
@@ -29,7 +29,9 @@
 		placeholder="Spotify playlist ID"
 	/>
 	<button
-		class="w-1/12 min-w-fit bg-blue-400 text-white rounded-tr-md rounded-br-md p-4 border-r-2 border-t-2 border-b-2 border-blue-300"
+		class={`transition-opacity w-1/12 min-w-fit bg-blue-400 text-white rounded-tr-md rounded-br-md p-4 border-r-2 border-t-2 border-b-2 border-blue-300 ${
+			!textinput ? 'disabled opacity-50 cursor-not-allowed' : ''
+		}`}
 		on:click={() => (playlist_id = textinput)}>Go!</button
 	>
 </div>
