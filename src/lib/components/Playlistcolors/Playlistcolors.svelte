@@ -11,9 +11,9 @@
 	export let playlist_id;
 </script>
 
-<div class="w-full" bind:clientWidth={screenwidth}>
+<div id="playlist-colors" class="w-full" bind:clientWidth={screenwidth}>
 	<Colorheader {playlist_id} />
-	<div id="playlist-colors" class={`h-[${height}px] my-4`} bind:clientWidth={screenwidth}>
+	<div class={`h-[${height}px] my-4`} bind:clientWidth={screenwidth}>
 		<Colorview width={screenwidth} {height} {playlist_id} />
 	</div>
 	<Options />
