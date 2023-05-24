@@ -4,7 +4,11 @@ import colorthief from 'colorthief';
 
 const PLAYLIST_ITEM_ENDPOINT = `https://api.spotify.com/v1/playlists`;
 
-export async function GET({ params, fetch }) {
+export async function GET({ params, fetch, setHeaders }) {
+	setHeaders({
+		'Cache-Control': 'max-age=0, s-maxage=86400'
+	});
+
 	const token = await get_spotify_token();
 	const response = await fetch(
 		`${PLAYLIST_ITEM_ENDPOINT}/${params.playlist_id}/tracks?fields=total,items(track(album(images,name),name,artists(name)))&limit=50&offset=${params.offset}`,

@@ -3,7 +3,11 @@ import { get_spotify_token } from '$lib/auth';
 
 const PLAYLIST_INFO_ENDPOINT = `https://api.spotify.com/v1/playlists`;
 
-export async function GET({ params, fetch }) {
+export async function GET({ params, fetch, setHeaders }) {
+	setHeaders({
+		'Cache-Control': 'max-age=0, s-maxage=86400'
+	});
+
 	const token = await get_spotify_token();
 	const { name, description, owner } = await fetch(
 		`${PLAYLIST_INFO_ENDPOINT}/${params.playlist_id}?fields=name,description,owner`,
