@@ -4,7 +4,7 @@
 </script>
 
 <div
-	class={`h-screen ${
+	class={`h-[100dvh] ${
 		$fullscreen ? 'max-w-none' : 'max-w-[1600px]'
 	} mx-auto my-auto flex flex-col justify-between px-8`}
 >
