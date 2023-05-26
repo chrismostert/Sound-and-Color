@@ -1,18 +1,17 @@
 <script>
 	import '../app.postcss';
-	import { fullscreen } from '$lib/store.js';
+	import { fullscreen, screenwidth } from '$lib/store.js';
 </script>
 
 <div
-	class={`h-[100dvh] ${
-		$fullscreen ? 'max-w-none' : 'max-w-[1600px]'
-	} mx-auto my-auto flex flex-col justify-between px-8`}
+	class={`h-[100dvh] ${$fullscreen ? 'max-w-none' : 'max-w-[1600px]'} mx-auto flex flex-col p-4`}
 >
-	<header />
-	<main>
-		<slot />
+	<main class="flex-1">
+		<div class="h-full flex flex-col justify-center" bind:clientWidth={$screenwidth}>
+			<slot />
+		</div>
 	</main>
-	<footer class="flex justify-end items-center p-4 text-slate-400 gap-x-4">
+	<footer class="flex justify-end items-center text-slate-400 gap-x-4 mt-4">
 		<a>About</a>
 		<div class="w-0 h-full border" />
 		<div class="shrink">

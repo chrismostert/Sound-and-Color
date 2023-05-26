@@ -3,18 +3,11 @@
 	import Colorview from './Colorview.svelte';
 	import Options from './Options.svelte';
 
-	let screenwidth;
-	let height;
-
-	$: height = (1 / 3) * screenwidth;
-
 	export let playlist_id;
 </script>
 
-<div id="playlist-colors" class="w-full" bind:clientWidth={screenwidth}>
+<div class="flex flex-col h-full justify-center" id="playlist-colors">
 	<Colorheader {playlist_id} />
-	<div class={`h-[${height}px] my-4`} bind:clientWidth={screenwidth}>
-		<Colorview width={screenwidth} {height} {playlist_id} />
-	</div>
+	<Colorview {playlist_id} />
 	<Options />
 </div>
