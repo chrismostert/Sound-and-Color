@@ -12,6 +12,10 @@
 	}
 </script>
 
+<svelte:head>
+	<title>Sound and Color | Let your music paint a picture!</title>
+</svelte:head>
+
 <div class="text-slate-600 mb-6">
 	<h1 class="text-7xl mb-2">Sound and color</h1>
 	<div class="max-w-prose">

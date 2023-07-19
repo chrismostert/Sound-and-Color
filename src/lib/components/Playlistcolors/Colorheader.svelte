@@ -1,11 +1,12 @@
 <script>
 	import { onMount } from 'svelte';
 
-	export let playlist_id;
+	export let playlist_id, playlist_title;
 	let info;
 
 	onMount(async () => {
 		info = await fetch(`/api/info/${playlist_id}`).then((res) => res.json());
+		playlist_title = info.name;
 	});
 </script>
 
