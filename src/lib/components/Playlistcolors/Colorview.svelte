@@ -4,7 +4,7 @@
 	const TRACKS_PER_CHUNK = 50;
 	const ANIMATION_DELAY = 10;
 
-	import { onMount } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
 	import { slide } from 'svelte/transition';
 	import { fullscreen, screenwidth, color_status, progress_percentage } from '$lib/store.js';
 
@@ -13,9 +13,12 @@
 	let total;
 	let bar_width;
 
+	let in_progress = false;
+
 	$: bar_width = $screenwidth / total;
 
 	onMount(async () => {
+		in_progress = true;
 		$color_status = 'Begin fetching colors...';
 		$progress_percentage = 0;
 
@@ -32,8 +35,12 @@
 
 			if (total > TRACKS_PER_CHUNK) {
 				for (let offset = TRACKS_PER_CHUNK; offset < total; offset += TRACKS_PER_CHUNK) {
+					if (!in_progress) {
+						break;
+					}
 					const cur_chunk = (offset + TRACKS_PER_CHUNK) / TRACKS_PER_CHUNK;
 					$color_status = `Fetching colors ${cur_chunk}/${total_chunks}...`;
+					console.log($color_status);
 
 					let res = await fetch(`/api/colors/${playlist_id}/${offset}`);
 					let status = res.status;
@@ -47,8 +54,15 @@
 				}
 			}
 
-			$color_status = 'done';
+			if (in_progress) {
+				$color_status = 'done';
+			}
 		}
+	});
+
+	onDestroy(() => {
+		$color_status = undefined;
+		in_progress = false;
 	});
 </script>
 
