@@ -53,10 +53,6 @@
 					$progress_percentage = (cur_chunk / total_chunks) * 100;
 				}
 			}
-
-			if (in_progress) {
-				$color_status = 'done';
-			}
 		}
 	});
 
