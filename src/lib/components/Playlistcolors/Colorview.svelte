@@ -16,15 +16,24 @@
 	$: bar_width = $screenwidth / total;
 
 	onMount(async () => {
-		let res = await fetch(`/api/colors/${playlist_id}/0`).then((res) => res.json());
+		let res = await fetch(`/api/colors/${playlist_id}/0`);
+		let status = res.status;
 
-		colors = res.colors;
-		total = res.total;
+		if (status == 200) {
+			res = await res.json();
+			colors = res.colors;
+			total = res.total;
 
-		if (total > TRACKS_PER_CHUNK) {
-			for (let offset = TRACKS_PER_CHUNK; offset < total; offset += TRACKS_PER_CHUNK) {
-				let res = await fetch(`/api/colors/${playlist_id}/${offset}`).then((res) => res.json());
-				colors = [...colors, ...res.colors];
+			if (total > TRACKS_PER_CHUNK) {
+				for (let offset = TRACKS_PER_CHUNK; offset < total; offset += TRACKS_PER_CHUNK) {
+					let res = await fetch(`/api/colors/${playlist_id}/${offset}`);
+					let status = res.status;
+
+					if (status == 200) {
+						res = await res.json();
+						colors = [...colors, ...res.colors];
+					}
+				}
 			}
 		}
 	});

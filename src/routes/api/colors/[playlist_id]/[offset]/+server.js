@@ -7,11 +7,6 @@ const PLAYLIST_ITEM_ENDPOINT = `https://api.spotify.com/v1/playlists`;
 const UNDEFINED_ART_COLOR = [197, 197, 197];
 
 export async function GET({ params, fetch, setHeaders }) {
-	// Cache the response so other people fetching the same playlist won't hammer the Spotify servers
-	setHeaders({
-		'Cache-Control': 'max-age=0, s-maxage=86400'
-	});
-
 	// Token is needed for authentication with the Spotify API
 	const token = await get_spotify_token();
 
@@ -28,7 +23,7 @@ export async function GET({ params, fetch, setHeaders }) {
 		);
 
 		// Check the status as returned by Spotify and fetch response as JSON
-		const status = response.status;
+		const status = response?.status;
 		response = await response.json();
 
 		// If not succefull, this API echoes the error as given by the Spotify web API
@@ -53,6 +48,11 @@ export async function GET({ params, fetch, setHeaders }) {
 				return await colorthief.getColor(image_url);
 			})
 		);
+
+		// Cache the response so other people fetching the same playlist won't hammer the Spotify servers
+		setHeaders({
+			'Cache-Control': 'max-age=0, s-maxage=86400'
+		});
 
 		// Return the final result
 		return json({

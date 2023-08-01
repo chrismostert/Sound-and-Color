@@ -1,12 +1,20 @@
 <script>
 	import { onMount } from 'svelte';
+	import { goto } from '$app/navigation';
 
 	export let playlist_id, playlist_title;
 	let info;
 
 	onMount(async () => {
-		info = await fetch(`/api/info/${playlist_id}`).then((res) => res.json());
-		playlist_title = info.name;
+		let response = await fetch(`/api/info/${playlist_id}`);
+		let status = response.status;
+
+		if (status == 200) {
+			info = await response.json();
+			playlist_title = info.name;
+		} else {
+			goto('/');
+		}
 	});
 </script>
 
