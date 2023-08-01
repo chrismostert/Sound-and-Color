@@ -42,3 +42,10 @@
 		on:click={() => (playlist_id = textinput)}>Go!</button
 	>
 </div>
+
+<div class="text-slate-600 max-w-prose mt-2">
+	Or view the <a
+		class="text-blue-400 hover:text-blue-600 hover:underline"
+		href="/6KOwiWg5zwrt83nEcx7HyI">history of billboard #1 hits</a
+	> as an example.
+</div>
