@@ -6,7 +6,7 @@
 
 	import { onMount } from 'svelte';
 	import { slide } from 'svelte/transition';
-	import { fullscreen, screenwidth } from '$lib/store.js';
+	import { fullscreen, screenwidth, color_status, progress_percentage } from '$lib/store.js';
 
 	let colors = [];
 
@@ -16,6 +16,9 @@
 	$: bar_width = $screenwidth / total;
 
 	onMount(async () => {
+		$color_status = 'Begin fetching colors...';
+		$progress_percentage = 0;
+
 		let res = await fetch(`/api/colors/${playlist_id}/0`);
 		let status = res.status;
 
@@ -24,8 +27,14 @@
 			colors = res.colors;
 			total = res.total;
 
+			const total_chunks = total / TRACKS_PER_CHUNK;
+			$progress_percentage = (1 / total_chunks) * 100;
+
 			if (total > TRACKS_PER_CHUNK) {
 				for (let offset = TRACKS_PER_CHUNK; offset < total; offset += TRACKS_PER_CHUNK) {
+					const cur_chunk = (offset + TRACKS_PER_CHUNK) / TRACKS_PER_CHUNK;
+					$color_status = `Fetching colors ${cur_chunk}/${total_chunks}...`;
+
 					let res = await fetch(`/api/colors/${playlist_id}/${offset}`);
 					let status = res.status;
 
@@ -33,8 +42,12 @@
 						res = await res.json();
 						colors = [...colors, ...res.colors];
 					}
+
+					$progress_percentage = (cur_chunk / total_chunks) * 100;
 				}
 			}
+
+			$color_status = 'done';
 		}
 	});
 </script>

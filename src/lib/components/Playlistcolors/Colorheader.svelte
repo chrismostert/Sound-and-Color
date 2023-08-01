@@ -1,6 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
+	import { color_status } from '$lib/store.js';
 
 	export let playlist_id, playlist_title;
 	let info;
@@ -13,6 +14,7 @@
 			info = await response.json();
 			playlist_title = info.name;
 		} else {
+			$color_status = undefined;
 			goto('/');
 		}
 	});

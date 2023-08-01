@@ -1,6 +1,5 @@
 <script>
 	import Playlistcolors from '$lib/components/Playlistcolors/Playlistcolors.svelte';
-
 	export let data;
 
 	let page_title = 'Sound and Color';
