@@ -3,6 +3,7 @@ import { get_spotify_token } from '$lib/auth';
 import colorthief from 'colorthief';
 
 const PLAYLIST_ITEM_ENDPOINT = `https://api.spotify.com/v1/playlists`;
+const UNDEFINED_ART_COLOR = [197, 197, 197];
 
 export async function GET({ params, fetch, setHeaders }) {
 	setHeaders({
@@ -21,9 +22,17 @@ export async function GET({ params, fetch, setHeaders }) {
 
 	const res = await Promise.all(
 		response.items.map(async (item) => {
-			const art = item.track.album.images[0].url;
-			const color = await colorthief.getColor(art);
-			return color;
+			const images = item?.track?.album?.images;
+			if (!images || images.length == 0) {
+				return UNDEFINED_ART_COLOR;
+			}
+
+			const image_url = images[0]?.url;
+			if (!image_url) {
+				return UNDEFINED_ART_COLOR;
+			}
+
+			return await colorthief.getColor(image_url);
 		})
 	);
 
